@@ -1,0 +1,58 @@
+<div style="padding: 0px 0px 0px 180px;overflow:auto" ng-controller="addUserCtrl">
+    <div class="row" style="padding-left: 8px;"><h1>New User</h1></div>
+    <form name="form">
+        <div style="padding: 20px 200px 40px 0px;">
+            <div class="form-group">
+                <label for="username">Username:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                <input ng-model="user.data.name" style="text-transform: lowercase;" class="form-control" id="username" placeholder="Username" ng-change="checkForExistingUser()" md-colors="{background: (invalid)?'red':'grey-A100'}" required>
+            </div>
+            <div class="form-group">
+                <label for="lan_mac">LAN Mac Id:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                <input ng-model="user.data.lan_macId" style="text-transform: lowercase;" class="form-control" id="lan_mac" placeholder="User's lan mac id." required>
+            </div>
+            <div class="form-group">
+                <label for="wifi_mac">Wifi Mac Id:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                <input ng-model="user.data.wifi_macId" style="text-transform: lowercase;" class="form-control" id="wifi_mac" placeholder="User's wifi mac id." required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Id:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                <table>
+                  <tr>
+                    <td>
+                      <input ng-model="user.data.email" style="text-transform: lowercase;" class="form-control" id="email" placeholder="username" required>
+                    </td>
+                    <td>
+                      &nbsp;@abc.com
+                    </td>
+                  </tr>
+                </table>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                <md-select ng-model="user.data.role" multiple required>
+                    <md-option ng-repeat="role in roles" value="{{role}}">{{role | uppercase}}</md-option>
+                </md-select>
+            </div>
+            <div class="form-group" ng-if="isArchitect(user.data.role)">
+                <label for="team">Team:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                <md-select ng-model="user.data.team" required>
+                    <md-option ng-repeat="team in teams" value="{{team}}">{{team | uppercase}}</md-option>
+                </md-select>
+            </div>
+            <div>
+                    <label md-colors="{color: 'red'}" ng-show="error">{{errorMsg}}</label>
+            </div>
+            <div class="row" style="margin-top: 50px;" ng-if="formStatus == 'Initial'">
+                <div class="col-sm-1" class="tooltip-wrapper" title="Click to cancel and close">
+                    <button type="button" class="btn btn-primary" ng-click="hideCreateUserPopUp();">&nbsp;Cancel&nbsp;</button>
+            </div>
+            <div class="col-sm-1" style="margin-left: 500px;" class="tooltip-wrapper" title="Fill all Mendatory fields to enable this button">
+                <button type="submit" class="btn btn-primary" ng-disabled="form.$error.required"  ng-click="submitNewUser()">Create User</button>
+            </div>
+            </div>
+            <div class="container" ng-if="formStatus != 'Initial'" style="margin: 20px 0px 20px 140px;">
+                <button class="btn btn-lg "><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Processing...</button>
+            </div>
+        </div>
+    </form>
+</div>

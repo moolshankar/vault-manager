@@ -1,0 +1,44 @@
+<div class="container" style="margin-left: 50px;width: 980px" ng-cloak>
+ <div style="padding-bottom: 20px;padding-right: 60px;position:fixed;background:white;z-index: 1">
+        <div class="col-sm-3"><h2>OTP ROLES</h2></div>
+        <div class="col-sm-1" style="margin: 25px 0px 0px 550px;"><button type="button" class="btn btn-primary" ng-click="addRole($event)">+ ADD NEW ROLE</button></div>
+  </div>
+  <table class="table" style="margin-left:15px;margin-top:100px;">
+    <thead >
+      <tr>
+        <th>Role</th>
+        <th>Default_User</th>
+        <th>Hypervisor</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th><span ng-show="!isIndeterminate() && !isChecked() || roles.length == 0">Delete</span><span><a href="#" ng-show="isIndeterminate() || isChecked() && !roles.length == 0" ng-click="deleteAllSelected($event)">Delete</a></span>&nbsp;&nbsp;&nbsp;
+            <md-checkbox style="position: absolute;"
+                         ng-checked="isChecked()"
+                         md-indeterminate="isIndeterminate()"
+                         ng-click="toggleAll()" ng-show="!roles.length == 0">
+            </md-checkbox>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="role in roles | orderBy:'name'">
+        <td>{{role.name}}</td>
+        <td>{{role.primary.default_user}}</td>
+        <td ng-if="!role.secondary.allHypervisors && !role.secondary.godServer"><p ng-repeat="rName in role.secondary.host">{{rName}}</p></td>
+        <td ng-if="role.secondary.allHypervisors || role.secondary.godServer">{{role.secondary.host}}</td>
+        <td>{{role.secondary.status}}</td>
+        <td><a href="#" ng-click="editRole($event,role)">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a></td>
+        <td><a href="#" ng-click="deleteRole($event,role)">
+            <span class="glyphicon glyphicon-trash"></span>
+            </a>&nbsp;&nbsp;&nbsp;
+            <md-checkbox style="position: absolute;"
+                         ng-checked="exists(role, selected)"
+                         ng-click="toggle(role, selected)">
+            </md-checkbox>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

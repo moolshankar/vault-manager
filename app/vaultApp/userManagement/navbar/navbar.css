@@ -1,0 +1,40 @@
+.navbarClass ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    height: 650px;
+    background-color: #33738E;
+}
+
+.navbarClass li a {
+    display: block;
+    color: #C5DFEA;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-family: "Courier New";
+    font-weight: bold;
+}
+
+.navbarClass li a:visited {
+    background-color: #0d212c;
+    color: white;
+}
+/* Change the link color on hover */
+.navbarClass li a:hover {
+    background-color: #92BFD1;
+    color: white;
+}
+
+.navbarClass li a:active {
+    background-color: #16242c;
+    color: white;
+}
+
+.navbarClass li summary {
+  color: #C5DFEA;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-family: "Courier New";
+  font-weight: bold;
+}

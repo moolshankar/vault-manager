@@ -1,0 +1,28 @@
+{
+  "name": "Vault Manager",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Vault Manager",
+  "repository": "https://github.com/moolshankar/vault-manager",
+  "license": "MIT",
+  "main": "server.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "forever start --minUptime 1000 --spinSleepTime 1000 server.js",
+    "stop": "forever stop server.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "^4.14.1",
+    "forever": "^0.15.3",
+    "fs": "0.0.1-security",
+    "is-undefined": "^1.0.7",
+    "node-arp": "^1.0.5",
+    "node.extend": "^2.0.0",
+    "path": "^0.12.7",
+    "ping": "^0.2.2",
+    "q": "^1.5.0",
+    "request": "^2.81.0",
+    "winston": "^2.3.1"
+  }
+}

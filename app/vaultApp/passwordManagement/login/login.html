@@ -1,0 +1,29 @@
+<div style="padding: 0px 0px 0px 180px;background-color: #33738E;display:block;color:#F2F6FE;overflow:hidden" ng-controller="pwdLoginCtrl">
+    <div class="row" style="padding-left: 8px;"><h1>Login : Password Management</h1></div>
+    <div>
+        <form name="form">
+            <div style="padding: 20px 200px 40px 0px;">
+              <div class="form-group">
+                  <label for="username">Username:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                  <input ng-model="user.name" style="text-transform: lowercase;" class="form-control" id="username" placeholder="Username" ng-required="true">
+              </div>
+              <div class="form-group">
+                  <label for="password">Password: <span class="after" md-colors="{color: 'red'}">*</span></label>
+                  <input type="password" ng-model="user.password" class="form-control" id="password" placeholder="Enter password" ng-required="true">
+              </div>
+              <div class="form-group">
+                  <label for="error" md-colors="{color: 'red-A100'}" ng-show="error">{{errorMsg}}</label>
+                  <input type="password" id="error" ng-show="false">
+              </div>
+              <div class="row" style="margin-top: 50px;" ng-if="formStatus == 'Initial'">
+                <div class="col-sm-1" style="margin-left: 0px;" class="tooltip-wrapper" title="Home page">
+                    <a href="/"><button type="button" class="btn btn-info"><b>Back to Home</b></button></a>
+                </div>
+                <div class="col-sm-1" style="margin-left: 545px;" class="tooltip-wrapper" title="Fill all Mendatory fields to enable sign in button">
+                    <button type="submit" class="btn btn-default" ng-disabled="form.$error.required || formStatus != 'Initial'"  ng-click="loginUser()">Sign In</button>
+                </div>
+              </div>
+          </div>
+        </form>
+    </div>
+</div>

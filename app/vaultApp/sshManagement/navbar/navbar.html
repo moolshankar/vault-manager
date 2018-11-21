@@ -1,0 +1,26 @@
+<div class="row navbarClass" ng-if="loggedInStatus">
+  <div class="col-sm-1" style="position: fixed;">
+    <div class="row" style="width: 215px;height: 40px;background-color: #33738E;">
+    </div>
+    <div class="row" style="width: 215px;height: 70px;background-color: #33738E;">
+      <a href='/'><span class="glyphicon glyphicon-home homeClass"><span style="margin-left: 10px;"><b>HOME</b></span></span></a>
+    </div>
+      <ul>
+        <li><a href="/ssh/dashboard">&nbsp;<span class="glyphicon glyphicon-inbox"></span>&nbsp;DASHBOARD</a></li>
+        <li ng-if="isAdmin('sshManagement')"><a href="/ssh/otpRoles">&nbsp;<span class="glyphicon glyphicon-education"></span>&nbsp;OTP ROLES</a></li>
+        <li><a href="/ssh/sshOtp">&nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp;SSH OTP</a></li>
+        <!-- <li>
+          <details>
+            <summary>SSH</summary>
+              <ul>
+                <li ng-if="loggedInRole == 'admin'"><a href="/otpRoles">&nbsp;<span class="glyphicon glyphicon-education"></span>&nbsp;OTP ROLES</a></li>
+                <li><a href="/sshOtp">&nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp;SSH OTP</a></li>
+              </ul>
+          </details>
+        </li> -->
+      </ul>
+   </div>
+  <div style="margin: 0px 25px 15px 180px;" >
+    <div style="margin-left: 15px;" ui-view id="popUpContainer"></div>
+  </div>
+</div>

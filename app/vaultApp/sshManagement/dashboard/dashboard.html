@@ -1,0 +1,51 @@
+<div class="panel" style="margin-left: 20px;width: 980px">
+      <div class="panel-heading" style="background-color: #33738E;color: white;height: 50px"><span style="margin-left: 30px;font-size: 20px;;
+      font-weight: bold;font-family: Courier New">DASHBOARD</span><span style="margin-left: 600px;font-size: 20px;"><a href="#" style="color: white;" ng-click="logout()">Logout</a></span></div>
+      <div class="panel-body">
+        <div>
+          <table class="aTable" style="margin-left: 20px;">
+            <tbody>
+              <tr>
+                <th>Username&nbsp;:&nbsp;</th>
+                <td>{{user.name}}</td>
+              </tr>
+              <tr>
+                <tr>
+                  <th>Roles&nbsp;:&nbsp;</th>
+                  <td><span ng-repeat="role in user.role">{{role}},&nbsp;</span></td>
+                </tr>
+              </tr>
+              <tr ng-if="user.team">
+                <th>Team&nbsp;:&nbsp;</th>
+                <td>{{user.team}}</td>
+              </tr>
+              <tr>
+                <th>LAN Mac ID&nbsp;:&nbsp;</th>
+                <td>{{user.lan_macId}}</td>
+              </tr>
+              <tr>
+                <th>Wifi Mac ID&nbsp;:&nbsp;</th>
+                <td>{{user.wifi_macId}}</td>
+              </tr>
+              <tr>
+                <th>Email&nbsp;:&nbsp;</th>
+                <td>{{user.email}}</td>
+              </tr>
+              <tr>
+                <th>SSH enabled?&nbsp;:&nbsp;</th>
+                <td>{{user.ssh}}</td>
+              </tr>
+              <tr>
+                <th>Activation status&nbsp;:&nbsp;</th>
+                <td>{{user.status}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- <div class="row" style="margin-top: 50px;">
+          <div class="col-sm-1" style="margin-left: 700px;" class="tooltip-wrapper" title="Click to edit or reset Password.">
+              <button type="submit" class="btn btn-primary"  ng-click="editUser($event)">Edit User</button>
+          </div>
+        </div> -->
+      </div>
+</div>

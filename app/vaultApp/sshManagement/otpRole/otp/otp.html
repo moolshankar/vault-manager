@@ -1,0 +1,48 @@
+<div class="panel" style="margin-left: 20px;width: 980px">
+      <div class="panel-heading" style="background-color: #33738E;color: white;height: 50px;font-family: Courier New;
+      font-weight: bold;"><span style="margin-left: 30px;font-size: 20px;">Genrate SSH OTP</span></div>
+      <div class="panel-body">
+        <div ng-if="roles && roles.length > 0">
+          <table class="table" style="margin-left: 20px;">
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Default_User</th>
+                <th>Hypervisor</th>
+                <th>Get OTP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="role in roles">
+                <td>{{role.name}}</td>
+                <td>{{role.primary.default_user}}</td>
+                <td><p ng-repeat="rName in role.secondary.host">{{rName}}</p></td>
+                <td><a href="#" ng-click="generateOtp($event,role)">
+                  <span class="glyphicon glyphicon-qrcode" style="padding-left: 16px;"></span>
+                </a></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div ng-if="error" style="margin-left: 30px;">
+              <label md-colors="{color: 'red'}">{{errorMsg}}</label>
+      </div>
+      <div ng-if="sshOtp" style="margin-left: 20px;">
+        <script>
+            var btn = document.getElementById('otpBtn');
+            var clipboard = new Clipboard(btn);
+            clipboard.on('success', function(e) {
+                console.log(e);
+            });
+            clipboard.on('error', function(e) {
+                console.log(e);
+            });
+        </script>
+        <input id="otp" style="height: 30px;width: 340px;border:none;text-align:center;margin-right: 10px;" ng-model="sshOtp" readonly>
+        <button type="button" class="btn btn-default btn-sm" id="otpBtn" data-clipboard-target="#otp" ng-click="copy()">
+          <span class="glyphicon glyphicon-copy"></span>Copy OTP
+        </button>
+        <span style="margin-left: 20px;">&nbsp;OTP expiring in : {{seconds}}&nbsp;seconds</span>
+      </div>
+      <div style="margin-left: 30px;" ng-if="!roles || roles.length == 0"><p>No otp role assigned, Please contact admin.</p></div>
+</div>

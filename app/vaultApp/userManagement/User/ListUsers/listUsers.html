@@ -1,0 +1,43 @@
+<div class="container" style="margin-left: 50px;width: 980px" id="userListContainer" ng-cloak>
+ <div style="padding-bottom: 20px;padding-right: 60px;position:fixed;background:white;z-index: 1">
+        <div class="col-sm-1"><h1>Users</h1></div>
+        <div class="col-sm-1" style="margin: 25px 0px 0px 600px;"><button type="button" class="btn btn-primary" ng-click="addUser($event)">+ ADD NEW USER</button></div>
+  </div>
+  <table class="table" style="margin-left:15px;margin-top:100px;">
+    <thead >
+      <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Team</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th><span ng-show="!isIndeterminate() && !isChecked() || users.length == 0">Delete</span><span><a href="#" ng-show="isIndeterminate() || isChecked() && !users.length == 0" ng-click="deleteAllSelected($event)">Delete</a></span>&nbsp;&nbsp;&nbsp;
+            <md-checkbox style="position: absolute;"
+                         ng-checked="isChecked()"
+                         md-indeterminate="isIndeterminate()"
+                         ng-click="toggleAll()" ng-show="!users.length == 0">
+            </md-checkbox>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in users | orderBy:'name'">
+        <td>{{user.name }}</td>
+        <td><div ng-repeat="role in user.role">{{role}}</div></td>
+        <td>{{user.team }}</td>
+        <td>{{user.status}}</td>
+        <td><a href="#" ng-click="editUser($event,user)">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a></td>
+        <td><a href="#" ng-click="deleteUser($event,user)">
+            <span class="glyphicon glyphicon-trash"></span>
+            </a>&nbsp;&nbsp;&nbsp;
+            <md-checkbox style="position: absolute;"
+                         ng-checked="exists(user, selected)"
+                         ng-click="toggle(user, selected)">
+            </md-checkbox>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

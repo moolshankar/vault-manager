@@ -1,0 +1,87 @@
+<div style="overflow:auto;padding: 0px 0px 0px 180px;" ng-controller="addOtpRoleCtrl">
+    <div class="row" style="padding-left: 8px;"><h1>New OTP Role</h1></div>
+    <div>
+        <form name="form">
+            <div style="padding: 20px 200px 40px 0px;">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="rolename">Role name:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                        <input ng-model="role.name" class="form-control" id="rolename" placeholder="Role name" ng-change="checkForExistingRole()" md-colors="{background: (invalid)?'red':'grey-A100'}" ng-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="user">Username: <span class="after" md-colors="{color: 'red'}">*</span></label>
+                        <md-select ng-model="role.primary.default_user" ng-required="true" id="user">
+                                    <md-option value="{{user.name}}" ng-repeat="user in users">{{user.name}}</md-option>
+                        </md-select>
+                    </div>
+                    <div class="form-group">
+                      <label for="idrList">Host IPs: <span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                      <ul class="list-group">
+                        <li class="list-group-item" style="border-style:none">
+                          <span ng-click="collapse = !collapse" >
+                          <span class="glyphicon glyphicon-plus" style="color:#8294ff;margin-right:10px"  ng-if="collapse"></span>
+                          <span class="glyphicon glyphicon-minus" style="color:#8294ff;margin-right:10px" ng-if="!collapse"></span>
+                          </span>
+                          <span style="margin-right:10px">All Hypervisors</span>
+                          <md-checkbox style="position: absolute;"
+                                       ng-checked="isChecked('all')"
+                                       md-indeterminate="isIndeterminate('all')"
+                                       ng-click="toggleAll('all')">
+                          </md-checkbox>
+                        </li>
+                      <ul>
+                      <ul class="list-group" id="hyperVList" ng-if="!collapse">
+                        <li class="list-group-item" style="border-style:none" ng-repeat="(key,value) in cidrs">
+                          <span ng-click="collapseSub = !collapseSub">
+                            <span class="glyphicon glyphicon-plus" style="color:#8294ff;margin-right:10px"  ng-if="collapseSub"></span>
+                            <span class="glyphicon glyphicon-minus" style="color:#8294ff;margin-right:10px" ng-if="!collapseSub"></span>
+                          </span>
+                          <span style="margin-right:10px">{{key}}</span>
+                          <md-checkbox style="position: absolute;"
+                                       ng-checked="isChecked(key)"
+                                       md-indeterminate="isIndeterminate(key)"
+                                       ng-click="toggleAll(key)">
+                          </md-checkbox>
+                          <ul class="list-group" ng-if="!collapseSub" id="ipList">
+                            <li class="list-group-item" style="border:none;margin-left:14px" ng-repeat="(key1,value1) in value">
+                              <span style="margin-right:10px">{{key1}}&nbsp;:&nbsp;{{value1}}</span>
+                              <!-- <span style="margin-right:10px">{{value1.name}}&nbsp;:&nbsp;{{value1.address}}</span> -->
+                              <md-checkbox style="position: absolute;"
+                                           ng-checked="exists(key1, selected)"
+                                           ng-click="toggle(key1, value1, selected, key)">
+                              </md-checkbox>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                        <md-select ng-model="role.secondary.status" required>
+                            <md-option value="active" ng-selected="days > 0">Active</md-option>
+                            <md-option value="inactive" ng-selected="!(days > 0)">Inactive</md-option>
+                        </md-select>
+                    </div>
+                    <div class="form-group">
+                        <label for="days">Vaild for Days:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                        <input type="number" min=0 ng-model="days" class="form-control" id="days" placeholder="eg: 2" ng-required="true">
+                    </div>
+                    <div>
+                            <label md-colors="{color: 'red'}" ng-show="error">{{errorMsg}}</label>
+                    </div>
+                    <div class="row" style="margin-top: 50px;" ng-if="formStatus == 'Initial'">
+                        <div class="col-sm-1" class="tooltip-wrapper" title="Click to cancel and close">
+                            <button type="button" class="btn btn-primary" ng-click="hideCreateRolePopUp();">&nbsp;Cancel&nbsp;</button>
+                        </div>
+                        <div class="col-sm-1" style="margin-left: 500px;" class="tooltip-wrapper" title="Fill all Mendatory fields to enable this button">
+                            <button type="submit" class="btn btn-primary" ng-disabled="form.$error.required"  ng-click="addRole()">Create Role</button>
+                        </div>
+                    </div>
+                    <div class="container" ng-if="formStatus != 'Initial'" style="margin: 20px 0px 20px 140px;">
+                        <button class="btn btn-lg "><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Processing...</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

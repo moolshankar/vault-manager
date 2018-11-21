@@ -1,0 +1,72 @@
+<!--<md-card>-->
+<div style="padding: 0px 0px 0px 180px;overflow:auto" ng-controller="editUserCtrl">
+    <div class="row" style="padding-left: 8px;"><h1>Edit User</h1></div>
+    <div>
+        <form name="form">
+            <div style="padding: 20px 200px 40px 0px;">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="username">Username:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                        <input ng-model="user.data.name" class="form-control" style="text-transform: lowercase;" id="username" placeholder="Username" ng-required="true" ng-disabled="true">
+                    </div>
+                    <div class="form-group" ng-if="isAdmin('userManagement')">
+                      <label for="lan_mac">LAN Mac Id:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                      <input ng-model="user.data.lan_macId" style="text-transform: lowercase;" class="form-control" id="lan_mac" placeholder="User's lan mac id." required>
+                    </div>
+                    <div class="form-group" ng-if="isAdmin('userManagement')">
+                      <label for="wifi_mac">Wifi Mac Id:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                      <input ng-model="user.data.wifi_macId" style="text-transform: lowercase;" class="form-control" id="wifi_mac" placeholder="User's wifi mac id." required>
+                    </div>
+                    <div class="form-group" ng-if="isAdmin('userManagement')">
+                        <label for="email">Email Id:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                        <input ng-model="user.data.email" style="text-transform: lowercase;" class="form-control" id="email" placeholder="User email address." required>
+                    </div>
+                    <div class="form-group" ng-if="isAdmin('userManagement')">
+                        <label for="role">Role:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                        <md-select ng-model="user.data.role" multiple required>
+                            <md-option ng-repeat="role in roles" value="{{role}}">{{role | uppercase}}</md-option>
+                        </md-select>
+                    </div>
+                    <div class="form-group" ng-if="isArchitect(user.data.role) && isAdmin('userManagement')">
+                        <label for="team">Team:<span class="after" md-colors="{color: 'red'}">*</span>&emsp;&emsp;</label>
+                        <md-select ng-model="user.data.team" required>
+                            <md-option ng-repeat="team in teams" value="{{team}}">{{team | uppercase}}</md-option>
+                        </md-select>
+                    </div>
+                    <div class="form-group" ng-if="isAdmin('userManagement')">
+                        <md-switch ng-model="user.updatePassword" aria-label="Update Password?">
+                          Update Password?
+                      </md-switch>
+                    </div>
+                    <div class="form-group" ng-if="!isAdmin('userManagement')">
+                        <label for="password">Old password: <span class="after" md-colors="{color: 'red'}">*</span></label>
+                        <input type="password" ng-model="user.oldPassword" class="form-control" id="password" placeholder="Enter old password" ng-change="error=false" ng-required="true">
+                    </div>
+                    <div class="form-group" ng-if="user.updatePassword || !isAdmin('userManagement')">
+                        <label for="password">New password: <span class="after" md-colors="{color: 'red'}">*</span></label>
+                        <input type="password" ng-model="user.newPassword" class="form-control" id="password" placeholder="New password" ng-change="error=false" ng-required="true">
+                    </div>
+                    <div class="form-group" ng-if="user.updatePassword || !isAdmin('userManagement')">
+                        <label for="password">Confirm new password: <span class="after" md-colors="{color: 'red'}">*</span></label>
+                        <input type="password" ng-model="user.confirmPassword" class="form-control" id="password" placeholder="Confirm new password" ng-required="true" ng-change="error=false" md-colors="{color: (jdbc.newPassword != jdbc.confirmPassword)?'red':'white'}">
+                    </div>
+                    <div class="form-group">
+                        <label for="error" md-colors="{color: 'red'}" ng-show="error">{{errorMsg}}</label>
+                        <input type="password" id="error" ng-show="false">
+                    </div>
+                    <div class="row" style="margin-top: 50px;" ng-if="formStatus == 'Initial'">
+                        <div class="col-sm-1" class="tooltip-wrapper" title="Click to cancel and close">
+                        <button type="button" class="btn btn-primary" ng-click="hideCreateUserPopUp();">&nbsp;Cancel&nbsp;</button>
+                        </div>
+                        <div class="col-sm-1" style="margin-left: 500px;" class="tooltip-wrapper" title="Fill all Mendatory fields to enable this button">
+                            <button type="submit" class="btn btn-primary" ng-disabled="form.$error.required"  ng-click="updateUser()">Update User</button>
+                        </div>
+                    </div>
+                    <div class="container" ng-if="formStatus != 'Initial'" style="margin: 20px 0px 20px 140px;">
+                        <button class="btn btn-lg "><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Processing...</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
